@@ -23,6 +23,7 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { Icons } from "../global/icons";
 import { AppLogoIcon } from "../global/app-logo-icon";
+import { registerUser } from "@/actions/users";
 
 // Define schema for form validation with Zod
 const registerSchema = z.object({
@@ -56,22 +57,21 @@ export default function Signup() {
   // Handle form submission
   const onSubmit = async (data: RegisterFormValues) => {
     console.log(data);
-  
     setIsSubmitting(true);
 
     try {
-      // const result = await registerUser(data);
-      // if (result.success) {
-      //   toast.success("Success!", {
-      //     description: result.message,
-      //   });
-      //   // Optional: redirect to login page
-      //   router.push("/dashboard");
-      // } else {
-      //   toast.error("Error", {
-      //     description: result.message,
-      //   });
-      // }
+      const result = await registerUser(data);
+      if (result.success) {
+        toast.success("Success!", {
+          description: "Your acccount has been created successfully.",
+        });
+        // Optional: redirect to login page
+        // router.push("/dashboard");
+      } else {
+        toast.error("Error", {
+          description: result.error,
+        });
+      }
     } catch (error) {
       toast.error("Error", {
         description: "Something went wrong. Please try again.",

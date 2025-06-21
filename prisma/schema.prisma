@@ -21,7 +21,7 @@ model User {
   image         String?
   createdAt     DateTime
   updatedAt     DateTime
-  sessions      Session[]
+  sessions      Session[] 
   accounts      Account[]
 
   @@unique([email])
